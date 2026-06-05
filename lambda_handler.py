@@ -7,6 +7,7 @@ from scanner.snapshot_scanner import scan_old_snapshots
 from scanner.s3_scanner import scan_empty_buckets
 from cost_explorer.real_costs import get_service_costs
 from cloudwatch.metrics import publish_metrics
+from notifications.github_issue import create_waste_issue
 
 def lambda_handler(event=None, context=None):
     print('CloudWise scan started')
@@ -85,6 +86,10 @@ def lambda_handler(event=None, context=None):
         }, f, indent=2, default=str)
 
     print("\nFindings saved to findings.json")
+    # Create GitHub Issue if waste found
+    if all_findings:
+        print("\nCreating GitHub Issue for approval...")
+        create_waste_issue(all_findings, total_monthly_inr)
     # Publish to CloudWatch
     print("\nPublishing metrics to CloudWatch...")
     personal_session = get_session_for_account("515206814398", "personal")
