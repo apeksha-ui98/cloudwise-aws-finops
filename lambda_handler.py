@@ -8,6 +8,7 @@ from scanner.s3_scanner import scan_empty_buckets
 from cost_explorer.real_costs import get_service_costs
 from cloudwatch.metrics import publish_metrics
 from notifications.github_issue import create_waste_issue
+from ai_summary.summary import generate_ai_summary
 
 def lambda_handler(event=None, context=None):
     print('CloudWise scan started')
@@ -84,12 +85,27 @@ def lambda_handler(event=None, context=None):
             'total_monthly_inr': total_monthly_inr,
             'total_annual_inr': total_monthly_inr * 12
         }, f, indent=2, default=str)
+        print("\nFindings saved to findings.json")
 
-    print("\nFindings saved to findings.json")
+    # Generate AI summary
+    if all_findings:
+        print("\nGenerating AI summary...")
+        summary = generate_ai_summary({
+            'findings': all_findings,
+            'total_monthly_inr': total_monthly_inr,
+            'total_annual_inr': total_monthly_inr * 12
+        })
+        print("\n--- AI SUMMARY ---")
+        print(summary)
+        with open('ai_summary.txt', 'w', encoding='utf-8') as f:
+            f.write(summary)
+        print("\nSummary saved to ai_summary.txt")
+
     # Create GitHub Issue if waste found
     if all_findings:
         print("\nCreating GitHub Issue for approval...")
         create_waste_issue(all_findings, total_monthly_inr)
+
     # Publish to CloudWatch
     print("\nPublishing metrics to CloudWatch...")
     personal_session = get_session_for_account("515206814398", "personal")
