@@ -7,3 +7,5 @@ ai_summary.txt
 terraform/.terraform/
 terraform/cloudwise.zip
 terraform/.terraform.lock.hcl
+terraform_1.15.5_windows_amd64.zip
+*.pyc
