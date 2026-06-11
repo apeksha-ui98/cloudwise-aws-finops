@@ -2,7 +2,7 @@
 
 A serverless AWS cost-optimisation tool that scans multiple AWS accounts for idle and wasted resources, calculates estimated monthly savings in **INR**, generates an **AI-written executive summary**, raises a **GitHub Issue** for human approval, and publishes custom metrics to **CloudWatch dashboards**. The scanner runs as an **AWS Lambda function** on a weekly schedule via EventBridge, provisioned entirely with **Terraform**.
 
-<img width="602" height="308" alt="Terminal_output" src="https://github.com/user-attachments/assets/69c3640c-6cba-4106-a812-557e3917c4bd" />
+<img width="602" height="315" alt="Terminal_output" src="https://github.com/user-attachments/assets/1c856baf-1cc3-4652-8f9b-357fa0d83251" />
 
 ## Tech Stack
 
