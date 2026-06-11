@@ -34,6 +34,9 @@ A serverless AWS cost-optimisation tool that scans multiple AWS accounts for idl
 5. **CloudWatch metrics** — publishes custom metrics (`waste_count`, `total_waste_inr`) for dashboarding and alerting
 6. **Automated scheduling** — EventBridge cron triggers Lambda every Monday at 9am UTC
 
+<img width="602" height="270" alt="lambda_console" src="https://github.com/user-attachments/assets/93d6b06c-6c81-495d-9839-4121017e2e38" />
+
+
 ## Project Structure
 cloudwise-aws-finops/
 
@@ -98,6 +101,18 @@ terraform apply
 - Terraform packages the Lambda ZIP automatically using the `archive_file` data source
 - Lambda timeout is set to 300 seconds to accommodate multi-account scans
 - IAM role includes permissions for EC2, EBS, EIP, S3, Cost Explorer, CloudWatch, and STS
+
+  <img width="602" height="315" alt="terraform_output" src="https://github.com/user-attachments/assets/454c49b4-8899-47fd-a6b3-c163458fc3ec" />
+
+## CI/CD (GitHub Actions)
+
+<img width="602" height="304" alt="github_actions" src="https://github.com/user-attachments/assets/b148ae4d-b874-4a14-ba0b-71351730eebc" />
+
+
+## Monitoring
+
+<img width="602" height="110" alt="cloudwatch_dashboard" src="https://github.com/user-attachments/assets/30937a12-6bb9-44e4-abcb-982fd3108721" />
+
 
 ## Sample Output
 CLOUDWISE COST OPTIMIZATION REPORT
