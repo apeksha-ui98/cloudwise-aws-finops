@@ -2,6 +2,8 @@
 
 A serverless AWS cost-optimisation tool that scans multiple AWS accounts for idle and wasted resources, calculates estimated monthly savings in **INR**, generates an **AI-written executive summary**, raises a **GitHub Issue** for human approval, and publishes custom metrics to **CloudWatch dashboards**. The scanner runs as an **AWS Lambda function** on a weekly schedule via EventBridge, provisioned entirely with **Terraform**.
 
+<img width="602" height="308" alt="Terminal_output" src="https://github.com/user-attachments/assets/69c3640c-6cba-4106-a812-557e3917c4bd" />
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -98,3 +100,40 @@ terraform apply
 - IAM role includes permissions for EC2, EBS, EIP, S3, Cost Explorer, CloudWatch, and STS
 
 ## Sample Output
+CLOUDWISE COST OPTIMIZATION REPORT
+Resource Type : stopped_ec2
+Account       : personal
+ID            : i-0abc123def456
+Instance Type : t3.medium
+Days Stopped  : 14 days
+Monthly Cost  : INR 415
+TOTAL MONTHLY WASTE : INR 1,245
+TOTAL ANNUAL WASTE  : INR 14,940
+☁️ CloudWise AI Analysis:
+Your AWS environment has 3 idle resources wasting ₹1,245/month (₹14,940/year).
+Immediate actions:
+
+Terminate 1 stopped EC2 instance — biggest cost at ₹415/month with zero business value
+Release 1 unassociated Elastic IP — charging ₹299/month for an unused IP address
+Delete 1 unattached EBS volume — orphaned storage with no instance attached
+
+## Local Development
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Set up environment variables
+cp .env.example .env
+# Fill in your AWS credentials and GitHub token
+
+# Run the scanner locally
+python lambda_handler.py
+```
+
+## Prerequisites
+
+- AWS account(s) with appropriate IAM permissions
+- Terraform >= 1.0
+- Python 3.11
+- GitHub Personal Access Token (for issue creation)
